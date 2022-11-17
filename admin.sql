@@ -1,0 +1,9 @@
+INSERT INTO userinformation (email, password, fullname) VALUES ('admin1@gmail.com', '123456', 'Admin One');
+INSERT INTO userinformation (email, password, fullname) VALUES ('admin2@gmail.com', '123456', 'Admin Two');
+INSERT INTO userinformation (email, password, fullname) VALUES ('admin3@gmail.com', '123456', 'Admin Three');
+INSERT INTO userinformation (email, password, fullname) VALUES ('admin4@gmail.com', '123456', 'Admin Four');
+INSERT INTO userinformation (email, password, fullname) VALUES ('admin5@gmail.com', '123456', 'Admin Five');
+INSERT INTO userinformation (email, password, fullname) VALUES ('admin6@gmail.com', '123456', 'Admin Six');
+INSERT INTO userinformation (email, password, fullname) VALUES ('admin7@gmail.com', '123456', 'Admin Seven');
+INSERT INTO userinformation (email, password, fullname) VALUES ('admin8@gmail.com', '123456', 'Admin Eight');
+INSERT INTO userinformation (email, password, fullname) VALUES ('admin9@gmail.com', '123456', 'Admin Nine');
