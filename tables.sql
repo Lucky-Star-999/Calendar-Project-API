@@ -1,4 +1,4 @@
-CREATE DATABASE calendarbookingsystem_v2;
+CREATE DATABASE calendarproject;
 
 CREATE TABLE userInformation (
     email varchar,

@@ -1,19 +1,19 @@
 const {Pool} = require('pg');
 
 // Create pool
-/*exports.createPool = () => {
+exports.createPool = () => {
     const pool = new Pool({
         user: 'postgres',
         host: 'localhost',
-        database: 'calendarbookingsystem_v2',
+        database: 'calendarproject',
         password: '123456',
         port: 5432,
     });
 
     return pool;
-}*/
+}
 
-exports.createPool = () => {
+/*exports.createPool = () => {
     const pool = new Pool({
         user: 'xjqrwizk',
         host: 'satao.db.elephantsql.com',
@@ -23,4 +23,4 @@ exports.createPool = () => {
     });
 
     return pool;
-}
+}*/
