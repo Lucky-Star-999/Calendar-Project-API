@@ -5,9 +5,9 @@ const eventUpdateController = require('./../../controller/event/UpdateController
 
 
 
-router.put('/update/acceptinvitation', eventUpdateController.acceptInvitation);
+router.put('/update/accept-invitation', eventUpdateController.acceptInvitation);
 
-router.put('/update/declineinvitation', eventUpdateController.declineInvitation);
+router.put('/update/decline-invitation', eventUpdateController.declineInvitation);
 
 
 

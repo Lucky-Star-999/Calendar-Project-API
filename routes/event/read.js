@@ -6,7 +6,11 @@ const eventReadController = require('./../../controller/event/ReadController.js'
 
 
 
-router.post('/read/event/email', eventReadController.readEventsByEmail);
+router.get('/event/email/:email', eventReadController.readEventsByEmail);
+
+router.get('/event/eventid/:eventid', eventReadController.readEventByEventid);
+
+router.get('/event/invitation/:email', eventReadController.readInvitationsByEmail);
 
 
 

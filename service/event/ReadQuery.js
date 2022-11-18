@@ -72,3 +72,61 @@ exports.readEventsByEmail = (email) => {
             AND status = 'accepted';`;
     return query;
 }
+
+// Get event by eventid
+exports.readEventByEventid = (eventid) => {
+    let query = 
+        `SELECT
+            eventid,
+            hostemail,
+            title,
+            to_char(starttime::timestamp, 'DD-MM-YYYY HH:MI') starttime,
+            to_char(endtime::timestamp, 'DD-MM-YYYY HH:MI') endtime,
+            description,
+            target,
+            (SELECT string_agg(guestemail, ' ') guestemails FROM invitation WHERE eventid = '${eventid}'),
+	        (SELECT string_agg(status, ' ') gueststatuses FROM invitation WHERE eventid = '${eventid}')
+        FROM
+            event
+        WHERE
+            eventid = '${eventid}'`;
+    return query;
+}
+
+
+// Get all invitations by email
+exports.readInvitationsByEmail = (email) => {
+    let query = 
+        `-- Invitations
+        SELECT
+            event.eventid,
+            invitation.guestemail email,
+            title,
+            description,
+            to_char(
+                starttime::time,
+                'HH12hMI AM'
+            ) starttime,
+            to_char(
+                endtime::time,
+                'HH12hMI AM'
+            ) endtime,
+            CASE
+                WHEN to_char(endtime - starttime, 'DD') = '00' THEN to_char(endtime - starttime, 'HH24hMI')
+                ELSE to_char(endtime - starttime, 'DD') || 'd ' || to_char(endtime - starttime, 'HH24hMI')
+            END duration,
+            to_char(starttime::date, 'DD/MM/YYYY') startdate,
+            CASE 
+                WHEN starttime < now() THEN 'true'
+                ELSE 'false'
+            END isoverdued,
+            '0' ishost
+        FROM
+            event
+            JOIN invitation
+                ON invitation.eventid = event.eventid
+        WHERE
+            invitation.guestemail = '${email}'
+            AND status = 'pending';`;
+    return query;
+}

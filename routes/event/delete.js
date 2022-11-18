@@ -5,7 +5,7 @@ const eventDeleteController = require('./../../controller/event/DeleteController
 
 
 
-router.delete('/delete/event', eventDeleteController.deleteEvent);
+router.delete('/event/:eventid', eventDeleteController.deleteEvent);
 
 
 
