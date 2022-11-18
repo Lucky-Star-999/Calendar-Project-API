@@ -3,7 +3,7 @@ const userReadModel = require('./../../model/user/ReadModel.js');
 // Read password from userinformation
 exports.readPassword = async (req, res) => {
     if (req.body.email == '' || req.body.password == '') {
-        res.send('Please fill in all field');
+        res.send('Please fill in all fields');
     } else {
         let passwordFromDatabase = await userReadModel.readPassword(req.body.email);
 
