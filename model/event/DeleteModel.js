@@ -30,3 +30,18 @@ exports.deleteInvitation = (eventid) => {
         })
     }));
 }
+
+// Delete an ivitation (Guest)
+exports.deleteGuestInvitation = (eventid, email) => {
+    return (new Promise((resolve, reject) => {
+        let pool = createPool.createPool();
+        let query = eventDeleteQuery.deleteGuestInvitation(eventid, email);
+
+        pool.query(query, (err, res) => {
+            resolve(1);
+            pool.end();
+        })
+    }));
+}
+
+

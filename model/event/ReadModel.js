@@ -44,3 +44,16 @@ exports.readInvitationsByEmail = (email) => {
         })
     }));
 }
+
+// Get all pending invitations by email
+exports.readPendingInvitationsByEmail = (email) => {
+    return (new Promise((resolve, reject) => {
+        let pool = createPool.createPool();
+        let query = eventReadQuery.readPendingInvitationsByEmail(email);
+
+        pool.query(query, (err, res) => {
+            resolve(res.rows);
+            pool.end();
+        })
+    }));
+}

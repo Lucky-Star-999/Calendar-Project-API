@@ -12,6 +12,12 @@ exports.deleteInvitation = (eventid) => {
     return query;
 }
 
+// Delete an ivitation
+exports.deleteGuestInvitation = (eventid, email) => {
+    let query = 
+        `DELETE FROM invitation WHERE eventid = '${eventid}' AND guestemail = '${email}';`;
+    return query;
+}
 
 
 

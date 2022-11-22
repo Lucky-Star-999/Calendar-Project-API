@@ -6,7 +6,7 @@ exports.readEventid = () => {
 }
 
 // Get all events by email
-exports.readEventsByEmail = (email) => {
+/*exports.readEventsByEmail = (email) => {
     let query = 
         `-- Event for user as a host
         SELECT
@@ -16,11 +16,11 @@ exports.readEventsByEmail = (email) => {
             description,
             to_char(
                 starttime::time,
-                'HH12hMI AM'
+                'HH12:MI AM'
             ) starttime,
             to_char(
                 endtime::time,
-                'HH12hMI AM'
+                'HH12:MI AM'
             ) endtime,
             CASE
                 WHEN to_char(endtime - starttime, 'DD') = '00' THEN to_char(endtime - starttime, 'HH24hMI')
@@ -47,11 +47,11 @@ exports.readEventsByEmail = (email) => {
             description,
             to_char(
                 starttime::time,
-                'HH12hMI AM'
+                'HH12:MI AM'
             ) starttime,
             to_char(
                 endtime::time,
-                'HH12hMI AM'
+                'HH12:MI AM'
             ) endtime,
             CASE
                 WHEN to_char(endtime - starttime, 'DD') = '00' THEN to_char(endtime - starttime, 'HH24hMI')
@@ -70,6 +70,40 @@ exports.readEventsByEmail = (email) => {
         WHERE
             invitation.guestemail = '${email}'
             AND status = 'accepted';`;
+    return query;
+}*/
+
+// Get events by email (user as a host)
+exports.readEventsByEmail = (email) => {
+    let query = 
+        `-- Event for user as a host
+        SELECT
+            event.eventid,
+            event.hostemail email,
+            title,
+            description,
+            to_char(
+                starttime::time,
+                'HH12:MI AM'
+            ) starttime,
+            to_char(
+                endtime::time,
+                'HH12:MI AM'
+            ) endtime,
+            CASE
+                WHEN to_char(endtime - starttime, 'DD') = '00' THEN to_char(endtime - starttime, 'HH24hMI')
+                ELSE to_char(endtime - starttime, 'DD') || 'd ' || to_char(endtime - starttime, 'HH24hMI')
+            END duration,
+            to_char(starttime::date, 'DD/MM/YYYY') startdate,
+            CASE 
+                WHEN starttime < now() THEN 'true'
+                ELSE 'false'
+            END isoverdued,
+            '1' ishost
+        FROM
+            event
+        WHERE
+            hostemail = '${email}'`;
     return query;
 }
 
@@ -93,9 +127,8 @@ exports.readEventByEventid = (eventid) => {
     return query;
 }
 
-
 // Get all invitations by email
-exports.readInvitationsByEmail = (email) => {
+/*exports.readInvitationsByEmail = (email) => {
     let query = 
         `-- Invitations
         SELECT
@@ -105,11 +138,11 @@ exports.readInvitationsByEmail = (email) => {
             description,
             to_char(
                 starttime::time,
-                'HH12hMI AM'
+                'HH12:MI AM'
             ) starttime,
             to_char(
                 endtime::time,
-                'HH12hMI AM'
+                'HH12:MI AM'
             ) endtime,
             CASE
                 WHEN to_char(endtime - starttime, 'DD') = '00' THEN to_char(endtime - starttime, 'HH24hMI')
@@ -128,5 +161,80 @@ exports.readInvitationsByEmail = (email) => {
         WHERE
             invitation.guestemail = '${email}'
             AND status = 'pending';`;
+    return query;
+}*/
+
+// Get pending invitations by email
+exports.readPendingInvitationsByEmail = (email) => {
+    let query = 
+        `-- Invitations
+        SELECT
+            event.eventid,
+            invitation.guestemail email,
+            title,
+            description,
+            to_char(
+                starttime::time,
+                'HH12:MI AM'
+            ) starttime,
+            to_char(
+                endtime::time,
+                'HH12:MI AM'
+            ) endtime,
+            CASE
+                WHEN to_char(endtime - starttime, 'DD') = '00' THEN to_char(endtime - starttime, 'HH24hMI')
+                ELSE to_char(endtime - starttime, 'DD') || 'd ' || to_char(endtime - starttime, 'HH24hMI')
+            END duration,
+            to_char(starttime::date, 'DD/MM/YYYY') startdate,
+            CASE 
+                WHEN starttime < now() THEN 'true'
+                ELSE 'false'
+            END isoverdued,
+            '0' ishost
+        FROM
+            event
+            JOIN invitation
+                ON invitation.eventid = event.eventid
+        WHERE
+            invitation.guestemail = '${email}'
+            AND status = 'pending';`;
+    return query;
+}
+
+// Get invitations by email (user as a guest)
+exports.readInvitationsByEmail = (email) => {
+    let query = 
+        `
+        -- Event for user as a guest
+        SELECT
+            event.eventid,
+            invitation.guestemail email,
+            title,
+            description,
+            to_char(
+                starttime::time,
+                'HH12:MI AM'
+            ) starttime,
+            to_char(
+                endtime::time,
+                'HH12:MI AM'
+            ) endtime,
+            CASE
+                WHEN to_char(endtime - starttime, 'DD') = '00' THEN to_char(endtime - starttime, 'HH24hMI')
+                ELSE to_char(endtime - starttime, 'DD') || 'd ' || to_char(endtime - starttime, 'HH24hMI')
+            END duration,
+            to_char(starttime::date, 'DD/MM/YYYY') startdate,
+            CASE 
+                WHEN starttime < now() THEN 'true'
+                ELSE 'false'
+            END isoverdued,
+            '0' ishost
+        FROM
+            event
+            JOIN invitation
+                ON invitation.eventid = event.eventid
+        WHERE
+            invitation.guestemail = '${email}'
+            AND status = 'accepted';`;
     return query;
 }

@@ -5,7 +5,11 @@ const eventDeleteController = require('./../../controller/event/DeleteController
 
 
 
-router.delete('/event/:eventid', eventDeleteController.deleteEvent);
+//router.delete('/event/:eventid', eventDeleteController.deleteEvent);
+
+router.delete('/event/:eventid', eventDeleteController.deleteHostEvent);
+
+router.delete('/invitation/:eventid/:email', eventDeleteController.deleteGuestInvitation);
 
 
 

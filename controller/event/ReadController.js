@@ -18,3 +18,9 @@ exports.readInvitationsByEmail = async (req, res) => {
     let result = await eventReadModel.readInvitationsByEmail(req.params.email);
     res.send(result);
 }
+
+// Get pending invitations by email
+exports.readPendingInvitationsByEmail = async (req, res) => {
+    let result = await eventReadModel.readPendingInvitationsByEmail(req.params.email);
+    res.send(result);
+}
