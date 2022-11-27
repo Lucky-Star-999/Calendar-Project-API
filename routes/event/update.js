@@ -9,6 +9,8 @@ router.put('/update/accept-invitation', eventUpdateController.acceptInvitation);
 
 router.put('/update/decline-invitation', eventUpdateController.declineInvitation);
 
+router.put('/event', eventUpdateController.updateEvent);
+
 
 
 // -------------------------------------------------------------------------------------

@@ -30,3 +30,43 @@ exports.declineInvitation = (eventid, email) => {
         })
     }));
 }
+
+//////////////////////// Update an event /////////////////////////
+// Update an event (excluded guests)
+exports.updateBasicEvent = (eventid, title, starttime, endtime, description) => {
+    return (new Promise((resolve, reject) => {
+        let pool = createPool.createPool();
+        let query = eventUpdateQuery.updateBasicEvent(eventid, title, starttime, endtime, description);
+
+        pool.query(query, (err, res) => {
+            resolve(1);
+            pool.end();
+        })
+    }));
+}
+
+// Update an event (excluded guests)
+exports.updateAddGuests = (eventid, guestemails) => {
+    return (new Promise((resolve, reject) => {
+        let pool = createPool.createPool();
+        let query = eventUpdateQuery.updateAddGuests(eventid, guestemails);
+
+        pool.query(query, (err, res) => {
+            resolve(1);
+            pool.end();
+        })
+    }));
+}
+
+// Update an event (excluded guests)
+exports.updateDeleteGuests = (eventid, guestemails) => {
+    return (new Promise((resolve, reject) => {
+        let pool = createPool.createPool();
+        let query = eventUpdateQuery.updateDeleteGuests(eventid, guestemails);
+
+        pool.query(query, (err, res) => {
+            resolve(1);
+            pool.end();
+        })
+    }));
+}

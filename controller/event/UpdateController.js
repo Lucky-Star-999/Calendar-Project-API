@@ -13,3 +13,13 @@ exports.declineInvitation = async (req, res) => {
 
     res.send('Decline event successfully');
 }
+
+// Update an event
+exports.updateEvent = async (req, res) => {
+    await eventUpdateModel.updateBasicEvent(req.body.eventid, req.body.title, req.body.starttime,
+        req.body.endtime, req.body.description);
+    await eventUpdateModel.updateAddGuests(req.body.eventid, req.body.guestemails);
+    await eventUpdateModel.updateDeleteGuests(req.body.eventid, req.body.guestemails);
+
+    res.send('Update event successfully');
+}
