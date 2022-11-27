@@ -19,6 +19,12 @@ exports.readPassword = async (req, res) => {
     }
 }
 
+// Read user from userinformation
+exports.readUser = async (req, res) => {
+	let result = await userReadModel.readUser(req.params.email);
+    res.send(result);
+}
+
 /*exports.readPassword = async (req, res) => {
     if (req.body.email == '' || req.body.password == '') {
         res.send('Please fill in all field');

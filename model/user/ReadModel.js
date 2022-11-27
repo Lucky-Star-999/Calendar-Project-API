@@ -19,3 +19,15 @@ exports.readPassword = (email) => {
     }));
 }
 
+// Read user from userinformation
+exports.readUser = (email) => {
+    return (new Promise((resolve, reject) => {
+        let pool = createPool.createPool();
+        let query = userReadQuery.readUser(email);
+
+        pool.query(query, (err, res) => {
+            resolve(res.rows);
+            pool.end();
+        })
+    }));
+}
