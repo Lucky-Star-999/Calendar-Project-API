@@ -74,7 +74,7 @@ exports.readEventid = () => {
 }*/
 
 // Get events by email (user as a host)
-exports.readEventsByEmail = (email) => {
+exports.readEventsByEmail = (email, keySearch) => {
     let query = 
         `-- Event for user as a host
         SELECT
@@ -103,7 +103,9 @@ exports.readEventsByEmail = (email) => {
         FROM
             event
         WHERE
-            hostemail = '${email}'`;
+            hostemail = '${email}'
+			AND title LIKE '%${keySearch}%'`;
+	//console.log(query);
     return query;
 }
 
@@ -165,7 +167,7 @@ exports.readEventByEventid = (eventid) => {
 }*/
 
 // Get pending invitations by email
-exports.readPendingInvitationsByEmail = (email) => {
+exports.readPendingInvitationsByEmail = (email, keySearch) => {
     let query = 
         `-- Invitations
         SELECT
@@ -197,12 +199,13 @@ exports.readPendingInvitationsByEmail = (email) => {
                 ON invitation.eventid = event.eventid
         WHERE
             invitation.guestemail = '${email}'
-            AND status = 'pending';`;
+            AND status = 'pending'
+			AND title LIKE '%${keySearch}%';`;
     return query;
 }
 
 // Get invitations by email (user as a guest)
-exports.readInvitationsByEmail = (email) => {
+exports.readInvitationsByEmail = (email, keySearch) => {
     let query = 
         `
         -- Event for user as a guest
@@ -235,6 +238,7 @@ exports.readInvitationsByEmail = (email) => {
                 ON invitation.eventid = event.eventid
         WHERE
             invitation.guestemail = '${email}'
-            AND status = 'accepted';`;
+            AND status = 'accepted'
+			AND title LIKE '%${keySearch}%';`;
     return query;
 }

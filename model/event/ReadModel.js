@@ -6,10 +6,10 @@ const eventReadQuery = require('./../../service/event/ReadQuery.js');
 const createPool = require('./../../service/CreatePool.js');
 
 // Get all events by email
-exports.readEventsByEmail = (email) => {
+exports.readEventsByEmail = (email, keySearch) => {
     return (new Promise((resolve, reject) => {
         let pool = createPool.createPool();
-        let query = eventReadQuery.readEventsByEmail(email);
+        let query = eventReadQuery.readEventsByEmail(email, keySearch);
 
         pool.query(query, (err, res) => {
             resolve(res.rows);
@@ -33,10 +33,10 @@ exports.readEventByEventid = (eventid) => {
 
 
 // Get all invitations by email
-exports.readInvitationsByEmail = (email) => {
+exports.readInvitationsByEmail = (email, keySearch) => {
     return (new Promise((resolve, reject) => {
         let pool = createPool.createPool();
-        let query = eventReadQuery.readInvitationsByEmail(email);
+        let query = eventReadQuery.readInvitationsByEmail(email, keySearch);
 
         pool.query(query, (err, res) => {
             resolve(res.rows);
@@ -46,10 +46,10 @@ exports.readInvitationsByEmail = (email) => {
 }
 
 // Get all pending invitations by email
-exports.readPendingInvitationsByEmail = (email) => {
+exports.readPendingInvitationsByEmail = (email, keySearch) => {
     return (new Promise((resolve, reject) => {
         let pool = createPool.createPool();
-        let query = eventReadQuery.readPendingInvitationsByEmail(email);
+        let query = eventReadQuery.readPendingInvitationsByEmail(email, keySearch);
 
         pool.query(query, (err, res) => {
             resolve(res.rows);
