@@ -1,7 +1,7 @@
 const {Pool} = require('pg');
 
 // Create pool
-exports.createPool = () => {
+/*exports.createPool = () => {
     const pool = new Pool({
         user: 'postgres',
         host: 'localhost',
@@ -11,9 +11,9 @@ exports.createPool = () => {
     });
 
     return pool;
-}
+}*/
 
-/*exports.createPool = () => {
+exports.createPool = () => {
     const pool = new Pool({
         user: 'xjqrwizk',
         host: 'satao.db.elephantsql.com',
@@ -23,4 +23,4 @@ exports.createPool = () => {
     });
 
     return pool;
-}*/
+}
